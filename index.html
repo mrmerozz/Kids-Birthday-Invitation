@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited to Mika's 7th birthday</title>
+<meta name="description" content="Tap the card to open your invitation to Mika's 7th birthday party.">
+<meta property="og:title" content="You're invited to Mika's 7th birthday">
+<meta property="og:description" content="Tap the card to open your invitation.">
+<meta name="theme-color" content="#CFEAF7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Mali:wght@500;600;700&display=swap">
+<link rel="prefetch" href="invitation.html">
+<style>
+:root {
+  --sky: #CFEAF7;
+  --sky-soft: #E8F5FB;
+  --ink: #33415C;
+  --ink-soft: #5B6782;
+  --coral: #F07167;
+  --sun: #FFD166;
+  --blue: #7CC6E8;
+  --blush: #F7A8C4;
+  --mint: #9ED8C0;
+  --paper: #FFFEFA;
+  --display: "Bagel Fat One", "Trebuchet MS", sans-serif;
+  --body: "Mali", "Trebuchet MS", sans-serif;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .25 0 0 0 0 .36 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+  background: var(--sky-soft);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+  background: linear-gradient(var(--sky), var(--sky-soft) 75%);
+  transition: opacity .45s ease;
+}
+
+body.leaving {
+  opacity: 0;
+}
+
+.cloud {
+  position: fixed;
+  width: 120px;
+  height: 38px;
+  border-radius: 40px;
+  background: #fff;
+  opacity: .9;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.cloud::before {
+  width: 54px;
+  height: 54px;
+  left: 18px;
+  top: -26px;
+}
+
+.cloud::after {
+  width: 40px;
+  height: 40px;
+  left: 62px;
+  top: -18px;
+}
+
+.cloud-a {
+  top: 9%;
+  left: 7%;
+}
+
+.cloud-b {
+  top: 18%;
+  right: 6%;
+  scale: 1.35;
+}
+
+.cloud-c {
+  top: 52%;
+  left: -34px;
+  scale: .8;
+  opacity: .75;
+}
+
+.hills {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20vh;
+  pointer-events: none;
+}
+
+.hills::before,
+.hills::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hills::before {
+  left: -15%;
+  right: 35%;
+  top: 0;
+  height: 260%;
+  background: #B4E2BF;
+}
+
+.hills::after {
+  left: 30%;
+  right: -20%;
+  top: 30%;
+  height: 260%;
+  background: #93D1A3;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 34px;
+  padding: 24px 16px 14vh;
+  perspective: 1600px;
+}
+
+.card {
+  --w: min(74vw, 300px, 52vh);
+  --s: 1;
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  rotate: -3deg;
+  transition: transform .9s cubic-bezier(.3, .7, .2, 1), rotate .6s ease;
+  animation: nudge 4.5s ease-in-out 1.5s infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card:focus-visible {
+  outline: 3px dashed var(--coral);
+  outline-offset: 12px;
+  border-radius: 16px;
+}
+
+.card.is-open {
+  animation: none;
+  rotate: 0deg;
+  transform: translateX(calc(50% * var(--s))) scale(var(--s));
+}
+
+@keyframes nudge {
+  0%, 84%, 100% {
+    rotate: -3deg;
+  }
+  88% {
+    rotate: 2deg;
+  }
+  92% {
+    rotate: -6deg;
+  }
+  96% {
+    rotate: -1deg;
+  }
+}
+
+.inside,
+.cover,
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px 14px 14px 6px;
+}
+
+.inside {
+  background: var(--grain), #F1ECFB;
+  box-shadow: 0 18px 30px -16px rgba(51, 65, 92, .45);
+}
+
+.note {
+  position: absolute;
+  left: 13%;
+  right: 13%;
+  top: 30%;
+  height: 60%;
+  padding: 12% 9% 0;
+  border-radius: 4px;
+  background: repeating-linear-gradient(transparent 0 25px, #D6E6F2 25px 27px), var(--paper);
+  box-shadow: 0 6px 14px -8px rgba(51, 65, 92, .4);
+  transition: transform .7s cubic-bezier(.3, 1.4, .4, 1);
+}
+
+.card.note-out .note {
+  transform: translateY(-40%) rotate(-3deg);
+}
+
+.note-text {
+  display: block;
+  font-family: var(--display);
+  font-size: calc(var(--w) * .085);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--coral);
+}
+
+.note-scribble {
+  display: block;
+  width: 86%;
+  height: 5px;
+  margin: 14% auto 0;
+  border-radius: 5px;
+  background: #D9E3EC;
+}
+
+.note-scribble + .note-scribble {
+  width: 64%;
+  margin-top: 9%;
+}
+
+.pocket {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50%;
+  border-radius: 0 0 14px 6px;
+  background: var(--grain), var(--mint);
+  -webkit-mask: radial-gradient(circle 10px at 50% 0, transparent 96%, #000) 0 0 / 20px 100% repeat-x;
+  mask: radial-gradient(circle 10px at 50% 0, transparent 96%, #000) 0 0 / 20px 100% repeat-x;
+}
+
+.pocket::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 20px;
+  border-top: 2px dashed rgba(255, 255, 255, .85);
+}
+
+.cover {
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: translateZ(1px);
+  transition: transform 1s cubic-bezier(.45, .05, .2, 1);
+}
+
+.card.is-open .cover {
+  transform: translateZ(1px) rotateY(-172deg);
+}
+
+@media (hover: hover) {
+  .card:not(.is-open):hover .cover {
+    transform: translateZ(1px) rotateY(-14deg);
+  }
+}
+
+.face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11% 9% 9%;
+  text-align: center;
+  background: var(--grain), var(--sun);
+  box-shadow: 0 18px 30px -16px rgba(51, 65, 92, .5);
+}
+
+.front-kicker {
+  font-family: var(--display);
+  font-size: calc(var(--w) * .095);
+  line-height: 1.05;
+}
+
+.badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 66%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border: 2px dashed rgba(255, 255, 255, .9);
+  border-radius: 50%;
+}
+
+.badge-num {
+  font-family: var(--display);
+  font-size: calc(var(--w) * .4);
+  line-height: 1;
+  color: var(--coral);
+  text-shadow: 0 5px 0 rgba(51, 65, 92, .2);
+  translate: 0 4%;
+}
+
+.front-foot {
+  font-size: calc(var(--w) * .058);
+  font-weight: 600;
+}
+
+.back {
+  display: grid;
+  place-items: center;
+  transform: rotateY(180deg);
+  background: radial-gradient(circle, var(--blush) 0 3px, transparent 3.5px) 0 0 / 22px 22px, #FFF5F8;
+}
+
+.back-text {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-family: var(--display);
+  font-size: calc(var(--w) * .1);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--coral);
+  background: #FFF5F8;
+  rotate: -6deg;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, .75);
+  transition: opacity .3s ease;
+}
+
+.hint-arrow {
+  width: 10px;
+  height: 10px;
+  border-left: 3px solid var(--coral);
+  border-top: 3px solid var(--coral);
+  rotate: 45deg;
+  animation: bob 1.4s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+body.opening .hint {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .hint-arrow {
+    animation: none;
+  }
+
+  .card,
+  .cover,
+  .note,
+  body {
+    transition: none;
+  }
+}
+</style>
+</head>
+<body>
+<span class="cloud cloud-a" aria-hidden="true"></span>
+<span class="cloud cloud-b" aria-hidden="true"></span>
+<span class="cloud cloud-c" aria-hidden="true"></span>
+
+<main class="stage">
+  <button class="card" id="card" type="button" aria-label="Open Mika's birthday invitation">
+    <span class="inside" aria-hidden="true">
+      <span class="note">
+        <span class="note-text">You're invited!</span>
+        <span class="note-scribble"></span>
+        <span class="note-scribble"></span>
+      </span>
+      <span class="pocket"></span>
+    </span>
+    <span class="cover" aria-hidden="true">
+      <span class="face front">
+        <span class="front-kicker">Mika is turning</span>
+        <span class="badge"><span class="badge-num">7</span></span>
+        <span class="front-foot">Party details inside</span>
+      </span>
+      <span class="face back">
+        <span class="back-text">Hip hip hooray!</span>
+      </span>
+    </span>
+  </button>
+  <p class="hint"><span class="hint-arrow" aria-hidden="true"></span>Tap the card to open</p>
+</main>
+
+<div class="hills" aria-hidden="true"></div>
+
+<script>
+const card = document.getElementById("card");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function fitScale() {
+  const room = window.innerWidth * 0.92;
+  return Math.min(1, room / (card.offsetWidth * 2));
+}
+
+async function openCard() {
+  if (card.classList.contains("is-open")) return;
+
+  card.style.setProperty("--s", fitScale().toFixed(3));
+  card.classList.add("is-open");
+  document.body.classList.add("opening");
+
+  if (!reduceMotion) {
+    await wait(750);
+    card.classList.add("note-out");
+    await wait(1150);
+  }
+
+  document.body.classList.add("leaving");
+  await wait(reduceMotion ? 50 : 450);
+  window.location.href = "invitation.html";
+}
+
+card.addEventListener("click", openCard);
+
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  document.body.classList.remove("opening", "leaving");
+  card.classList.remove("is-open", "note-out");
+});
+</script>
+</body>
+</html>
